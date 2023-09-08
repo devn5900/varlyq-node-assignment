@@ -2,10 +2,14 @@ const { PostModel } = require("../models/Post.model");
 
 const getPost = async (req, res) => {
   try {
-    const data = await PostModel.find({}).populate({
-      path: "createdBy",
-      select: ["name", "_id"],
-    });
+    const data = await PostModel.find({}).populate('createdBy', 'name email') 
+    .populate({
+      path: 'comments',
+      populate: [
+        { path: 'sentBy', select: 'name' }, 
+        { path: 'liked', select: 'name' },   
+      ],
+    })
     return res.status(200).json({ data });
   } catch (error) {
     res.status(500).send({ msg: "Internal Server Error", code: "9" });

@@ -4,7 +4,7 @@ const { getPost, createPost, deletePost, updatePost, commentOnPost, updateCommen
 
  const PostRouter= Router();
 
-PostRouter.get("/",isAuthorized,getPost)
+PostRouter.get("/",getPost)
 PostRouter.post("/",isAuthorized,createPost)
 PostRouter.delete("/:postId",isAuthorized,deletePost)
 PostRouter.post("/comment/:postId",isAuthorized,commentOnPost)
